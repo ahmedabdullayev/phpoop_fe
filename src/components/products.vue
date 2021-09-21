@@ -1,12 +1,12 @@
 <template id="products-component">
-<div>Products here:</div>
+<div>Products heresdd:</div>
   <div class="wrapper">
-    <button type="submit" class="btn btn-success" @click="submitItem()">Submit</button>
+    <button type="submit" class="btn btn-success" @click="submitItem($event)">Submit</button>
   <div class="archive" v-for="post in productList" :key="post.id">
-    <form ref="form" v-on:submit.prevent="submitItem">
+    <form ref="form" v-on:submit.prevent="submitItem($event)">
     <article class="article"><input type="checkbox" v-bind:name="'id' + post.id" v-bind:value="post.id" v-model="form.product_id[post.id]">
       <p class="sku">{{post.SKU}}</p>
-      <p>{{post.name}}</p>
+      <p>{{post.name}} ddsad</p>
       <p>{{post.price}} $</p>
     <template v-if="post.product_type_id == 1">
       <p>{{post.size}} MB</p>
@@ -48,8 +48,13 @@ export default defineComponent({
         'FETCH_PRODUCTS'
     ]),
     submitItem(){
-      this.$refs.form.submit()
+      let el: any  = this.$refs.form
+      el.addEventListener('submit', (event:any) => {
+        event.preventDefault()
+      })
       console.warn(Object.keys(this.form.product_id))
+     this.form.product_id.length = 0
+
     }
   },
   async mounted() {
