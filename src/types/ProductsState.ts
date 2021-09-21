@@ -1,0 +1,3 @@
+interface ProductsState{
+    products: Products[],
+}
