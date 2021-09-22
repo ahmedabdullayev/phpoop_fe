@@ -16,14 +16,13 @@ export default {
             })
         })
     },
-    DELETE_PRODUCTS(context: any){
+    DELETE_PRODUCTS(context: any, products: any){
         return new Promise((resolve, reject) => {
             axios({
-                method: 'post',
-                url: "/delete-products"
+                method: 'get',
+                url: "/delete-products?ids="+products,
             }).then((response: any)=>{
                 console.warn(response.data)
-                context.commit("deleteProducts", response.data)
                 resolve(response)
             }).catch((err: any)=>{
                     reject(err)

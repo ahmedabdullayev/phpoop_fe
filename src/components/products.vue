@@ -46,7 +46,8 @@ export default defineComponent({
   },
   methods: {
     ...mapActions('products', [
-        'FETCH_PRODUCTS'
+        'FETCH_PRODUCTS',
+        'DELETE_PRODUCTS'
     ]),
     submitItem: function () {
       let el: any = this.$refs.form
@@ -55,31 +56,15 @@ export default defineComponent({
       })
       let ids: string[] = Object.keys(this.form.product_id)
       let idsInt: number[] = ids.map((i) => Number(i));
-      console.warn("ids: ", idsInt)
-      this.form.product_id.length = 0
-      console.warn("products: ", this.productList);
-      let length: number = this.productList.length;
-      let cloneTihs = this.productList;
 
       for (let i = 0; i < idsInt.length; i++) {
-        _.remove(this.productList, {id: idsInt[i]})
-        // _.reject(this.productList, (o) => {
-        //   return o.id >= idsInt[i];
-        // });
-
+        _.remove(this.productList, function(currentObject: any) {
+          return currentObject.id === idsInt[i];
+        });
       }
-      console.warn("find: ", this.productList)
-      // for(let i =0; i < length; i++){
-      //   console.warn("prodId: ",this.productList[i]['id'])
-      //   for(let j = 0; j < length; j++) {
-      //     console.warn("length: ", length)
-      //     console.warn("IDS_id: " ,ids[j])
-      //     if (copy[i]['id'] == ids[j]) {
-      //       console.warn("got it!")
-      //       this.productList.splice(i, 1);
-      //     }
-      //   }
-      // }
+      let newar = Array.from(idsInt, val => 'id: '+ val);
+      this.DELETE_PRODUCTS(idsInt)
+
     }
   },
   async mounted() {
