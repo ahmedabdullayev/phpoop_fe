@@ -27,6 +27,7 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
+import _ from 'lodash'
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 export default defineComponent({
   name: "products",
@@ -47,14 +48,38 @@ export default defineComponent({
     ...mapActions('products', [
         'FETCH_PRODUCTS'
     ]),
-    submitItem(){
-      let el: any  = this.$refs.form
-      el.addEventListener('submit', (event:any) => {
+    submitItem: function () {
+      let el: any = this.$refs.form
+      el.addEventListener('submit', (event: any) => {
         event.preventDefault()
       })
-      console.warn(Object.keys(this.form.product_id))
-     this.form.product_id.length = 0
+      let ids: string[] = Object.keys(this.form.product_id)
+      let idsInt: number[] = ids.map((i) => Number(i));
+      console.warn("ids: ", idsInt)
+      this.form.product_id.length = 0
+      console.warn("products: ", this.productList);
+      let length: number = this.productList.length;
+      let cloneTihs = this.productList;
 
+      for (let i = 0; i < idsInt.length; i++) {
+        _.remove(this.productList, {id: idsInt[i]})
+        // _.reject(this.productList, (o) => {
+        //   return o.id >= idsInt[i];
+        // });
+
+      }
+      console.warn("find: ", this.productList)
+      // for(let i =0; i < length; i++){
+      //   console.warn("prodId: ",this.productList[i]['id'])
+      //   for(let j = 0; j < length; j++) {
+      //     console.warn("length: ", length)
+      //     console.warn("IDS_id: " ,ids[j])
+      //     if (copy[i]['id'] == ids[j]) {
+      //       console.warn("got it!")
+      //       this.productList.splice(i, 1);
+      //     }
+      //   }
+      // }
     }
   },
   async mounted() {

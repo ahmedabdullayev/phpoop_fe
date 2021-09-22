@@ -11,7 +11,21 @@ export default {
                 context.commit("setAllProducts", response.data)
                 resolve(response)
             })
-                .catch((err: any)=>{
+            .catch((err: any)=>{
+                reject(err)
+            })
+        })
+    },
+    DELETE_PRODUCTS(context: any){
+        return new Promise((resolve, reject) => {
+            axios({
+                method: 'post',
+                url: "/delete-products"
+            }).then((response: any)=>{
+                console.warn(response.data)
+                context.commit("deleteProducts", response.data)
+                resolve(response)
+            }).catch((err: any)=>{
                     reject(err)
                 })
         })
