@@ -1,17 +1,22 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 import Index from '../views/Index.vue'
-
+import AddProduct from '../views/AddProduct.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Index',
     component: Index
   },
+  {
+    path: '/add-product',
+    name: 'AddProduct',
+    component: AddProduct
+  }
 
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
 })
 
