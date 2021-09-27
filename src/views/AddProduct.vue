@@ -7,7 +7,7 @@
 import {defineComponent} from "vue";
 import productFrom from "@/components/productForm";
 export default defineComponent({
-  name: "",
+  name: "AddProduct",
   components: {productFrom}
 })
 </script>

@@ -161,6 +161,7 @@ export default defineComponent({
     }
   },
   async mounted() {
+    console.warn("something")
    await this.FETCH_PRODUCTTYPES();
    this.form.types = this.productTypes;
     this.form.selected = this.form.types[0]['id']
