@@ -2,6 +2,18 @@
   <div class="add_form">
     <form id="#product_form" v-on:submit.prevent="submitForm">
     <input type="text" id="#sku" name="sku" v-model="form.sku" placeholder="SKU.." >
+      <div v-if="skuSameError.length">
+        <div class="error-msg">
+          <i class="fa fa-times-circle"></i>
+          There is already same sku!
+        </div>
+      </div>
+      <div v-if="skuLengthErr.length">
+        <div class="error-msg">
+          <i class="fa fa-times-circle"></i>
+          SKU is empty or length is more than 10, please check!
+        </div>
+      </div>
     <input type="text" id="#name" name="name" v-model="form.name" placeholder="Name.." >
     <currency-input
         v-model="form.value"
@@ -47,7 +59,7 @@
       <input class="save" type="submit" value="Save">
 
     </form>
-    <input class="cancel" type="submit" value="Cancel">
+    <input class="cancel" type="submit" value="Cancel" @click="redirectToMain()">
   </div>
 </template>
 
@@ -63,6 +75,8 @@ export default defineComponent({
     return{
       errors: [] as string[],
       isNumber: [] as string[],
+      skuSameError: [] as string[],
+      skuLengthErr: [] as string[],
       form: {
         sku: null as unknown as string,
         name: null as unknown as string,
@@ -110,8 +124,20 @@ export default defineComponent({
         let string = "?sku=" + this.form.sku + "&name=" + this.form.name + "&price=" + this.form.value + "&type=" +
             this.form.selected + "&size=" + this.form.size + "&weight=" + this.form.weight + "&height=" +
             this.form.height + "&width=" + this.form.width + "&length=" + this.form.length;
-        // console.warn(string)
-        this.ADD_PRODUCT(string)
+        this.ADD_PRODUCT(string).then(() => {
+          this.skuSameError = [];
+          this.skuLengthErr = [];
+          this.$router.push('/');
+        }).catch(error =>{
+          this.skuSameError = [];
+          this.skuLengthErr = [];
+          if(error.response.data.message == "same_sku"){
+            this.skuSameError.push("sku_error")
+          }
+          if(error.response.data.message == "empty_or_big"){
+            this.skuLengthErr.push("empty_or_big")
+          }
+        })
       }
     },
     checkForEmpty(value: string | number){
@@ -129,6 +155,9 @@ export default defineComponent({
         this.isNumber.push('error')
         evt.preventDefault();
       }
+    },
+    redirectToMain(){
+      this.$router.push('/');
     }
   },
   async mounted() {

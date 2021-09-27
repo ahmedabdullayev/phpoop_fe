@@ -1,12 +1,16 @@
 <template id="products-component">
-<div>Products heresdd:</div>
+  <div class="mainBtns">
+  <input class="mainBtn" style="" type="button" id="#delete-product-btn" @click="submitItem($event)" value="MASS DELETE">
+  <input class="mainBtn" type="button" value="ADD" @click="redirectToProducts()">
+  </div>
+<hr>
   <div class="wrapper">
     <template v-if="this.productList.length">
-    <button type="submit" class="btn btn-success" @click="submitItem($event)">Submit</button>
     </template>
   <div class="archive" v-for="post in productList" :key="post.id">
     <form ref="form" v-on:submit.prevent="submitItem($event)">
-    <article class="article"><input type="checkbox" v-bind:name="'id' + post.id" v-bind:value="post.id" v-model="form.product_id[post.id]">
+    <article class="article">
+      <input type="checkbox" class="delete-checkbox" v-bind:name="'id' + post.id" v-bind:value="post.id" v-model="form.product_id[post.id]" >
       <p class="sku">{{post.SKU}}</p>
       <p>{{post.name}} </p>
       <p>{{post.price}} $</p>
@@ -70,6 +74,9 @@ export default defineComponent({
       let newar = Array.from(idsInt, val => 'id: '+ val);
       this.DELETE_PRODUCTS(idsInt)
 
+    },
+    redirectToProducts(){
+      this.$router.push('/add-product');
     }
   },
   async mounted() {
@@ -135,6 +142,10 @@ export default defineComponent({
     margin-right: auto;
     width: 40%;
   }
+  .mainBtns{
+    margin-left: auto;
+    margin-right: 0;
+  }
   .wrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -159,6 +170,24 @@ export default defineComponent({
     grid-auto-rows: minmax(50px, auto);
     grid-gap: 5px;
   }
+}
+
+.mainBtn{
+  display:inline-block;
+  padding:0.3em 1.2em;
+  margin:0 0.3em 0.3em 0;
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:300;
+  color:#FFFFFF;
+  background-color:#4eb5f1;
+  text-align:center;
+  transition: all 0.2s;
+}
+.massDelete:hover{
+  background-color:#4095c6;
 }
 .sku{
   text-transform: uppercase;
