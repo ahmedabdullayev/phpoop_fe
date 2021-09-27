@@ -8,7 +8,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Index
   },
   {
-    path: '/add-product',
+    path: '/add-products',
     name: 'AddProduct',
     component: AddProduct
   }
