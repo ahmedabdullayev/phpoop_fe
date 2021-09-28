@@ -8,16 +8,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Index',
     component: Index
   },
-  // {
-  //   path: '/add-product',
-  //   name: 'AddProduct',
-  //   component: AddProduct
-  // },
   {
     path: '/add-product',
-    name: 'testForm',
-    component: testForm
-  }
+    name: 'AddProduct',
+    component: AddProduct
+  },
 
 ]
 

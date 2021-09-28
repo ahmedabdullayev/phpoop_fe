@@ -1,9 +1,6 @@
 <template>
 <h1>Product List</h1>
   <products></products>
-  <form id="#product_form">
-    <input type="text">
-  </form>
 </template>
 
 <script>

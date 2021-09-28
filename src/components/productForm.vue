@@ -1,7 +1,7 @@
 <template>
   <div class="add_form">
-    <form id="#product_form" v-on:submit.prevent="submitForm">
-    <input type="text" id="#sku" name="sku" v-model="form.sku" placeholder="SKU.." >
+    <form id="product_form" v-on:submit.prevent="submitForm">
+    <input type="text" id="sku" name="sku" v-model="form.sku" placeholder="SKU.." >
       <div v-if="skuSameError.length">
         <div class="error-msg">
           <i class="fa fa-times-circle"></i>
@@ -17,31 +17,31 @@
     <input type="text" id="#name" name="name" v-model="form.name" placeholder="Name.." >
     <currency-input
         v-model="form.value"
-        id="#price"
+        id="price"
         placeholder="Price.."
         :options="{ currency: 'EUR' }"
         v-on:keypress="NumbersOnly"
     />
       <div>
       <p class="type-label">Please, choose a type:</p>
-      <select v-model="form.selected" id="#productType">
+      <select v-model="form.selected" id="productType">
         <option v-for="(type) in form.types" :key="type.id" v-bind:value="type.id" >{{type.name}}</option>
       </select>
       </div>
     <template v-if="form.selected == 1">
       <p class="type-label">Please, provide size:</p>
-      <input type="text" id="#size" name="size" v-model="form.size" placeholder="Size (in MB).." v-on:keypress="NumbersOnly">
+      <input type="text" id="size" name="size" v-model="form.size" placeholder="Size (in MB).." v-on:keypress="NumbersOnly">
     </template>
     <template v-else-if="form.selected == 2">
       <p class="type-label">Please, provide weight:</p>
-      <input type="text" id="#weight" name="weight" v-model="form.weight" placeholder="Weight (in Kg).." v-on:keypress="NumbersOnly">
+      <input type="text" id="weight" name="weight" v-model="form.weight" placeholder="Weight (in Kg).." v-on:keypress="NumbersOnly">
     </template>
     <template v-else-if="form.selected == 3">
       <div>
       <p class="type-label" >Please, provide dimensions:</p>
-      <input type="text" id="#height" name="weight" v-model="form.height" placeholder="Height (CM).." v-on:keypress="NumbersOnly">
-      <input type="text" id="#width" name="width" v-model="form.width" placeholder="Width (CM).." v-on:keypress="NumbersOnly">
-      <input type="text" id="#length" name="length" v-model="form.length" placeholder="Length (CM).." v-on:keypress="NumbersOnly">
+      <input type="text" id="height" name="weight" v-model="form.height" placeholder="Height (CM).." v-on:keypress="NumbersOnly">
+      <input type="text" id="width" name="width" v-model="form.width" placeholder="Width (CM).." v-on:keypress="NumbersOnly">
+      <input type="text" id="length" name="length" v-model="form.length" placeholder="Length (CM).." v-on:keypress="NumbersOnly">
       </div>
     </template>
       <div v-if="errors.length">
