@@ -14,7 +14,7 @@
           SKU is empty or length is more than 10, please check!
         </div>
       </div>
-    <input type="text" id="#name" name="name" v-model="form.name" placeholder="Name.." >
+    <input type="text" id="name" name="name" v-model="form.name" placeholder="Name.." >
     <currency-input
         v-model="form.value"
         id="price"
