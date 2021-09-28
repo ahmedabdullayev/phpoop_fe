@@ -1,5 +1,5 @@
 <template>
-<form id="#product_form">
+<form id="#adsdsad">
   <input type="text">
 </form>
 </template>
