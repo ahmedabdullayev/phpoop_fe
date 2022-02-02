@@ -6,7 +6,7 @@
   >
 </template>
 
-<script>
+<script lang="ts">
 import { useCurrencyInput } from 'vue-currency-input'
 import {defineComponent} from "vue";
 
@@ -17,7 +17,7 @@ export default defineComponent({
     options: Object
   },
   setup (props) {
-    const { formattedValue, inputRef } = useCurrencyInput(props.options)
+    const { formattedValue, inputRef } = useCurrencyInput(props.options as any)
 
     return { inputRef, formattedValue }
   }

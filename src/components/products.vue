@@ -3,19 +3,22 @@
   <input class="mainBtn" style="" type="button" id="#delete-product-btn" @click="submitItem($event)" value="MASS DELETE">
   <input class="mainBtn" type="button" value="ADD" @click="redirectToProducts()">
   </div>
-<hr>
-  <div class="wrapper">
-    <template v-if="this.productList.length">
-    </template>
-  <div class="archive" v-for="post in productList" :key="post.id">
+  <div class="wrapper py-3">
+  <div class="archive " v-for="post in productList" :key="post.id">
     <form ref="form" v-on:submit.prevent="submitItem($event)">
     <article class="article">
-      <input type="checkbox" class="delete-checkbox" v-bind:name="'id' + post.id" v-bind:value="post.id" v-model="form.product_id[post.id]" >
-      <p class="sku">{{post.SKU}}</p>
-      <p>{{post.name}} </p>
-      <p>{{post.price}} $</p>
+      <div class="form-check form-switch">
+      <input type="checkbox" class="form-check-input" v-bind:id="post.id" v-bind:name="'id' + post.id" v-bind:value="post.id" v-model="form.product_id[post.id]" >
+        <VueCustomTooltip position="is-right" label="Check to delete with Mass Delete"><small class="form-check-label text-muted" v-bind:for="post.id">
+          <a href="#" class="fa fa-question-circle text-decoration-none" ></a>
+        </small></VueCustomTooltip>
+      </div>
+      <p class="sku badge bg-primary" >{{post.SKU}}</p>
+
+      <p class="fw-bold">{{post.name}} </p>
+      <p class="fw-light">{{post.price}} $</p>
     <template v-if="post.product_type_id == 1">
-      <p>{{post.size}} MB</p>
+      <p class="fst-normal">{{post.size}} MB</p>
     </template>
     <template v-if="post.product_type_id == 2">
       <p>{{post.weight}}KG</p>
@@ -23,20 +26,26 @@
     <template v-if="post.product_type_id == 3">
       <p>{{post.height}}x{{post.width}}x{{post.length}}</p>
     </template>
-      <hr>
-      <hr>
+
     </article>
     </form>
   </div>
   </div>
+
+
+
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
+
+
 import _ from 'lodash'
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 export default defineComponent({
   name: "products",
+  components: {
+  },
   data(){
     return{
       productList: [],
@@ -84,6 +93,9 @@ export default defineComponent({
     this.productList = this.products
     console.warn(this.products.length)
     console.warn("list here:", this.productList);
+
+
+
   }
 })
 </script>
@@ -95,6 +107,10 @@ export default defineComponent({
 @phone:     ~"only screen and (max-width: 500px)";
 @mainColor: #42b983;
 @whiteColor: #fff;
+
+.wrapper {
+  margin: 20px;
+}
 @media @phone {
   .page {
     padding: 1em;
@@ -189,6 +205,10 @@ export default defineComponent({
 .massDelete:hover{
   background-color:#4095c6;
 }
+.form-check{
+  text-align: left;
+}
+
 .sku{
   text-transform: uppercase;
 }
@@ -199,6 +219,7 @@ export default defineComponent({
     }
 
     .article {
+      border-radius: 10px;
       padding: 1em;
       background: @whiteColor;
       box-shadow:
