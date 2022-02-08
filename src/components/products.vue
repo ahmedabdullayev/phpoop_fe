@@ -68,10 +68,7 @@ export default defineComponent({
       if(this.products.length == 0){
         return
       }
-      let el: any = this.$refs.form
-      el.addEventListener('submit', (event: any) => {
-        event.preventDefault()
-      })
+
       let ids: string[] = Object.keys(this.form.product_id)
       let idsInt: number[] = ids.map((i) => Number(i));
 
@@ -91,8 +88,8 @@ export default defineComponent({
   async mounted() {
     await this.FETCH_PRODUCTS();
     this.productList = this.products
-    console.warn(this.products.length)
-    console.warn("list here:", this.productList);
+    console.log(this.products.length)
+    console.log("list here:", this.productList);
 
 
 
